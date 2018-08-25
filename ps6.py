@@ -268,45 +268,29 @@ class CiphertextMessage(Message):
         #pass #delete this line and replace with your code here
         
         self.encrypted_list = self.message_text.split(" ")
-        #print(self.encrypted_list)
         self.message_text_copy = self.message_text
         self.get_message_text()
         shift_num = None
         maxium = 0
         for i in range(1,27):
             countt = 0
-            
-            s = []
             for j in self.encrypted_list:
                 self.message_text = j
                 word = self.apply_shift((26-i))
                 if (is_word(self.get_valid_words(), word)):
                     countt += 1
-                    s.append(word)
-                    #print(countt)
-                    #print(s)
-                        
                     if countt > maxium:
                         maxium = countt
                         shift_num = 26-i
-                        #print(shift_num)
         if shift_num == None:
-            #print(countt)
-            #print(s)
             return 1
-            #pass
         else:
             self.message_text = self.message_text_copy
             self.message_text_copy = "".join(self.apply_shift(shift_num))
             self.message_text = self.message_text_copy
             self.shift = 26-shift_num
-            ree = self.message_text
-            re = self.shift
-#            x = (self.shift, self.message_text )
-            #print (x)
+            return (self.shift, self.message_text )
             
-            return (re, ree)
-
 ##Example test case (PlaintextMessage)
 #plaintext = PlaintextMessage('hello', 2)
 #print('Expected Output: jgnnq')
@@ -319,9 +303,6 @@ class CiphertextMessage(Message):
 #            
 def decrypt_story():
     decrypted = CiphertextMessage(get_story_string())
-    print(decrypted.get_message_text())
-    print(decrypted.decrypt_message())
+    return (decrypted.decrypt_message())
     
-    #return x
-#
 print(decrypt_story())
